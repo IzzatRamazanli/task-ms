@@ -3,15 +3,15 @@ package az.tarlan.taskms.service.impl;
 import az.tarlan.taskms.dto.request.LoginRequest;
 import az.tarlan.taskms.dto.request.RegisterRequest;
 import az.tarlan.taskms.dto.response.AuthenticationResponse;
-import az.tarlan.taskms.exception.RecordNotFoundException;
 import az.tarlan.taskms.enums.Role;
+import az.tarlan.taskms.enums.TokenType;
+import az.tarlan.taskms.exception.RecordNotFoundException;
 import az.tarlan.taskms.model.User;
 import az.tarlan.taskms.repository.TokenRepository;
 import az.tarlan.taskms.repository.UserRepository;
 import az.tarlan.taskms.service.AuthenticationService;
 import az.tarlan.taskms.service.JwtService;
 import az.tarlan.taskms.token.Token;
-import az.tarlan.taskms.enums.TokenType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -56,6 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         String jwt = jwtService.generateToken(user);
         revokeAllUserTokens(user);
         saveUserToken(user, jwt);
+        log.info("Logged in successfully!");
         return AuthenticationResponse.builder().token(jwt).build();
     }
 

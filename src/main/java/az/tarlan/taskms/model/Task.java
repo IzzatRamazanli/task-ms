@@ -1,6 +1,7 @@
 package az.tarlan.taskms.model;
 
 
+import az.tarlan.taskms.enums.TaskBoard;
 import az.tarlan.taskms.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -27,8 +29,10 @@ public class Task {
 
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
+    @Enumerated(EnumType.STRING)
+    private TaskBoard board;
     private String title;
     private String description;
     private String assignee;
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
 }

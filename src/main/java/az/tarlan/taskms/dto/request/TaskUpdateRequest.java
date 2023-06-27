@@ -5,11 +5,12 @@ import az.tarlan.taskms.enums.TaskStatus;
 import lombok.Builder;
 
 @Builder
-public record TaskCreationRequest(
+public record TaskUpdateRequest(
         String title,
         String desc,
-        TaskStatus status,
         TaskBoard board,
-        String assignee
+        TaskStatus status,
+        String assignee,
+        String dueDate
 ) {
 }

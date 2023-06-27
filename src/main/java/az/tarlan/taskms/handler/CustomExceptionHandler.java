@@ -1,7 +1,7 @@
 package az.tarlan.taskms.handler;
 
 import az.tarlan.taskms.dto.response.ErrorResponseDto;
-import jakarta.validation.ValidationException;
+import az.tarlan.taskms.exception.RecordNotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -18,16 +18,6 @@ import java.util.Objects;
 @RestControllerAdvice
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(ValidationException.class)
-    protected ResponseEntity<ErrorResponseDto> handleValidationException(ValidationException ex) {
-        ErrorResponseDto dto = ErrorResponseDto.builder()
-                .status(HttpStatus.BAD_REQUEST.toString())
-                .message(ex.getMessage())
-                .errorTime(LocalDateTime.now())
-                .build();
-        return new ResponseEntity<>(dto, HttpStatus.BAD_REQUEST);
-    }
-
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
@@ -38,5 +28,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
                 .message(Objects.requireNonNull(ex.getFieldError()).getDefaultMessage())
                 .errorTime(LocalDateTime.now()).build();
         return new ResponseEntity<>(dto, status);
+    }
+
+    @ExceptionHandler(RecordNotFoundException.class)
+    protected ResponseEntity<ErrorResponseDto> handleRecordNotFoundException(RecordNotFoundException ex) {
+        ErrorResponseDto dto = ErrorResponseDto.builder()
+                .status(HttpStatus.NOT_FOUND.toString())
+                .message(ex.getMessage())
+                .errorTime(LocalDateTime.now())
+                .build();
+        return new ResponseEntity<>(dto, HttpStatus.NOT_FOUND);
     }
 }
