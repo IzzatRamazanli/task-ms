@@ -31,6 +31,24 @@ public class TaskController {
         return ResponseEntity.ok(taskService.searchOnAssignee(assignee));
     }
 
+    @GetMapping("/search/status")
+    public ResponseEntity<List<TaskResponse>> getTaskByStatus(@RequestParam String status) {
+        log.info("Task search with status accepted");
+        return ResponseEntity.ok(taskService.searchOnStatus(status));
+    }
+
+    @GetMapping("/search/board")
+    public ResponseEntity<List<TaskResponse>> getTaskByBoard(@RequestParam String board) {
+        log.info("Task search with board accepted");
+        return ResponseEntity.ok(taskService.searchOnBoard(board));
+    }
+
+    @GetMapping("/search/title")
+    public ResponseEntity<List<TaskResponse>> getTaskByTitle(@RequestParam String title) {
+        log.info("Task search with title accepted");
+        return ResponseEntity.ok(taskService.searchOnTitle(title));
+    }
+
     @PostMapping("/new")
     public ResponseEntity<TaskResponse> createNewTask(@RequestBody TaskCreationRequest request) {
         log.info("Task creation request accepted");

@@ -17,4 +17,7 @@ public interface TaskService {
     void deleteTask(Long id);
 
     List<TaskResponse> searchOnAssignee (String assignee);
+    List<TaskResponse> searchOnStatus (String status);
+    List<TaskResponse> searchOnBoard (String board);
+    List<TaskResponse> searchOnTitle (String title);
 }

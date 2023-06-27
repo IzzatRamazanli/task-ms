@@ -3,6 +3,8 @@ package az.tarlan.taskms.service.impl;
 import az.tarlan.taskms.dto.request.TaskCreationRequest;
 import az.tarlan.taskms.dto.request.TaskUpdateRequest;
 import az.tarlan.taskms.dto.response.TaskResponse;
+import az.tarlan.taskms.enums.TaskBoard;
+import az.tarlan.taskms.enums.TaskStatus;
 import az.tarlan.taskms.exception.RecordNotFoundException;
 import az.tarlan.taskms.mapper.TaskMapper;
 import az.tarlan.taskms.model.Task;
@@ -71,7 +73,39 @@ public class TaskServiceImpl implements TaskService {
             log.info("By assignee {}", tasks);
             return tasks.stream().map(TaskMapper.INSTANCE::taskEntityToDto).toList();
         }
-        throw new RecordNotFoundException("Tasks not found");
+        throw new RecordNotFoundException("Tasks not found on this assignee");
+    }
+
+    @Override
+    public List<TaskResponse> searchOnStatus(String status) {
+        TaskStatus taskStatus = TaskStatus.valueOf(status.toUpperCase());
+        List<Task> tasks = taskRepository.findByStatus(taskStatus);
+        if (!tasks.isEmpty()) {
+            log.info("By status {}", tasks);
+            return tasks.stream().map(TaskMapper.INSTANCE::taskEntityToDto).toList();
+        }
+        throw new RecordNotFoundException("Tasks not found in this status");
+    }
+
+    @Override
+    public List<TaskResponse> searchOnBoard(String board) {
+        TaskBoard taskBoard = TaskBoard.valueOf(board.toUpperCase());
+        List<Task> tasks = taskRepository.findByBoard(taskBoard);
+        if (!tasks.isEmpty()) {
+            log.info("By board {}", tasks);
+            return tasks.stream().map(TaskMapper.INSTANCE::taskEntityToDto).toList();
+        }
+        throw new RecordNotFoundException("Tasks not found in this board");
+    }
+
+    @Override
+    public List<TaskResponse> searchOnTitle(String title) {
+        List<Task> tasks = taskRepository.findByTitleEqualsIgnoreCase(title);
+        if (!tasks.isEmpty()) {
+            log.info("By title {}", tasks);
+            return tasks.stream().map(TaskMapper.INSTANCE::taskEntityToDto).toList();
+        }
+        throw new RecordNotFoundException("Tasks not found on this title");
     }
 
 
