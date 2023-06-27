@@ -1,4 +1,4 @@
-package az.tarlan.taskms.token;
+package az.tarlan.taskms.enums;
 
 public enum TokenType {
     BEARER

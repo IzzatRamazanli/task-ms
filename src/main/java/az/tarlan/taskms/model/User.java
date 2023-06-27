@@ -1,5 +1,6 @@
 package az.tarlan.taskms.model;
 
+import az.tarlan.taskms.enums.Role;
 import az.tarlan.taskms.token.Token;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

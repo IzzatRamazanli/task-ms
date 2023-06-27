@@ -1,4 +1,4 @@
-package az.tarlan.taskms.model;
+package az.tarlan.taskms.enums;
 
 public enum Role {
     ADMIN

@@ -1,35 +1,34 @@
-package az.tarlan.taskms.token;
+package az.tarlan.taskms.model;
 
-import az.tarlan.taskms.enums.TokenType;
-import az.tarlan.taskms.model.User;
+
+import az.tarlan.taskms.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "token")
 @DynamicInsert
-public class Token {
+@DynamicUpdate
+@Table(name = "task")
+public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String token;
 
     @Enumerated(EnumType.STRING)
-    private TokenType tokenType;
-
-    private boolean expired;
-
-    private boolean revoked;
-
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private TaskStatus status;
+    private String title;
+    private String description;
+    private String assignee;
+    private LocalDateTime dueDate;
 }
