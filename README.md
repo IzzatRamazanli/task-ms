@@ -1,14 +1,15 @@
 # Getting Started
 
-### Before running the app set datasource through docker compose file. As a database PostgreSQL RDBMS used.
+### Running
+Application uses PostgreSQL for database management system. Image is available through docker-compose
 
-```shell
-    docker compose up
+```sh
+$ docker compose up
 ```
 
-```shell
-    gradlew bootRun
+```sh
+$ gradlew bootRun
 ```
 
-[Swagger-ui available under ]
+[Swagger UI is available under http://localhost:8080/task-ms/swagger-ui/index.html]((http://localhost:8080/task-ms/swagger-ui/index.html))
 
